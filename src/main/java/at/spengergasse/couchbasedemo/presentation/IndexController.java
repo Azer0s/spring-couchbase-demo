@@ -2,13 +2,11 @@ package at.spengergasse.couchbasedemo.presentation;
 
 import at.spengergasse.couchbasedemo.domain.Item;
 import at.spengergasse.couchbasedemo.domain.User;
+import at.spengergasse.couchbasedemo.service.ItemService;
 import at.spengergasse.couchbasedemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,7 +27,12 @@ public class IndexController {
     }
 
     @GetMapping("/user/{name}/{item}")
-    private @ResponseBody List<Item> getUserItem(@PathVariable("name") String name, @PathVariable("item") Long item){
+    public @ResponseBody Item getUserItem(@PathVariable("name") String name, @PathVariable("item") Long item){
         return userService.getItemFromUser(name,item);
+    }
+
+    @PutMapping("/user/{name}/{item}")
+    public @ResponseBody void createUserItem(@PathVariable("name") String name, @PathVariable("item") Long item, @RequestParam("itemName") String itemName, @RequestParam("itemDescription") String itemDescription) throws Exception {
+        userService.createItemForUser(name,item,itemName,itemDescription);
     }
 }
