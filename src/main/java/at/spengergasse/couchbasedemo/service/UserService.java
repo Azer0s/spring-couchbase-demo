@@ -18,7 +18,18 @@ public class UserService {
         return userRepository.findByUsername(username);
     }
 
-    public void createUser(String username) {userRepository.save(User.builder().username(username).id(UUID.randomUUID().toString()).build());}
+    public boolean createUser(String username){
+        if (userRepository.findByUsername(username) != null){
+            return false;
+        }
+
+        var user = User.builder()
+                .id(UUID.randomUUID().toString())
+                .username(username)
+                .build();
+        userRepository.save(user);
+        return true;
+    }
 
     public Item getItemFromUser(String username, Long item){
         var user = getUserByUsername(username);
