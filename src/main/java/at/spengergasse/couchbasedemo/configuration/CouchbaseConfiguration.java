@@ -12,10 +12,10 @@ import java.util.List;
 @EnableCouchbaseRepositories
 public class CouchbaseConfiguration extends AbstractCouchbaseConfiguration {
 
-    @Value("${spring.couchbase.host:db.simulevski.at}")
+    @Value("${spring.couchbase.host:localhost}")
     private String host;
 
-    @Value("${spring.couchbase.bucketname:usersAndItems}")
+    @Value("${spring.couchbase.bucketname:users}")
     private String bucketname;
 
     @Value("${spring.couchbase.username:demo}")
